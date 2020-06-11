@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import axios from "axios"
 
-//Set globa base URL
+//Set globals
 axios.defaults.baseURL = "https://jsonplaceholder.cypress.io/";
 axios.defaults.headers.common["Authorization"] = "AUTH TOKEN"
 axios.defaults.headers.post["Content-Type"] = "application/json"
