@@ -10,13 +10,14 @@ class FullPost extends Component {
 
   deletePostHandler = () => {
     axios
-        .delete("https://jsonplaceholder.cypress.io/posts/" + this.props.id)
+        .delete("/posts/" + this.props.id)
         .then(resp => {
             console.log(resp)
         })
         .catch(err => {
             console.log(err)
         })
+    
   }
 
   componentDidUpdate() {

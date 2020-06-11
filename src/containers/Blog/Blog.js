@@ -19,7 +19,7 @@ articleClickHandler= (id) => {
 
 
 componentDidMount() {
-    axios.get("https://jsonplaceholder.cypress.io/posts")
+    axios.get("/posts")
         .then(res => {
             const receivedPosts = res.data.slice(0, 6);
             const updatedPosts = receivedPosts.map(post => {
