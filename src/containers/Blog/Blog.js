@@ -18,7 +18,6 @@ articleClickHandler= (id) => {
     this.setState({selectedPostId: id})
 }
 
-
 componentDidMount() {
     axios.get("/posts")
         .then(res => {
@@ -53,7 +52,15 @@ componentDidMount() {
         }
 
         return (
-            <div>
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/new">New</a></li>
+                        </ul>
+                    </nav>
+                </header>
                 <section className="Posts">
                     {posts}
                 </section>
