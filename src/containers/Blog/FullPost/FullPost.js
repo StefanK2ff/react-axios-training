@@ -21,15 +21,24 @@ class FullPost extends Component {
   }
 
   componentDidMount() {
-    this.setState({loadedPost: this.props.match.params.id})
+    console.log("[FullPost] componentDidMount");
+    //this.setState({loadedPost: this.props.match.params.id})
+    this.loadData();
     
+  }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData() {
     if (this.props.match.params.id) {
-      console.log("[FullPost] componentDidMount");
+      
       if (
         !this.state.loadedPost ||
-        (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)
+        (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.id)
       ) {
-        console.log("axios");
+        
         axios
           .get("https://jsonplaceholder.cypress.io/posts/" + this.props.match.params.id)
           .then((resp) => {
