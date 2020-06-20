@@ -1,78 +1,40 @@
-import React, { Component } from 'react';
-//import axios from "axios"
-import axios from "../../axios"
+import React, { Component } from "react";
+import { Route, NavLink } from "react-router-dom";
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
-import './Blog.css';
+import "./Blog.css";
+import Posts from "./Posts/Posts";
+import NewPost from "./NewPost/NewPost";
 
 class Blog extends Component {
-    state = {
-        posts: null,
-        loading: true,
-        selectedPostId: null,
-        error: false
-    }
-articleClickHandler= (id) => {
-    this.setState({selectedPostId: id})
-}
+  render() {
+    return (
+      <div className="Blog">
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/" exact>Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/new" exact>New</NavLink>
+                {/* pathname: this.props.match.url + "/relative-path" */}
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-componentDidMount() {
-    axios.get("/posts")
-        .then(res => {
-            const receivedPosts = res.data.slice(0, 6);
-            const updatedPosts = receivedPosts.map(post => {
-                return {
-                    ...post,
-                    author: "Someone"
-                }
-            })
-            this.setState({posts: updatedPosts, loading: false})
-        })
-        .catch(err => {
-            console.log("There was an error while loading the posts: ", err);
-            this.setState({error: true})
-        })
-}
+        <Route path="/" exact component={Posts} />
+        <Route path="/new" exact component={NewPost} />
 
-    render () {
-        let posts = "loading";
-        if (this.state.error) {posts = "something went wrong, please releoad in 5 seconds."}
-        {!this.state.loading
-            ? posts = this.state.posts.map(post => {
-                return <Post 
-                            key={post.id} 
-                            title={post.title}
-                            author={post.author}
-                            clicked={() => this.articleClickHandler(post.id)}
-                            />
-                })
-            : null
-        }
-
-        return (
-            <div className="Blog">
-                <header>
-                    <nav>
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/new">New</a></li>
-                        </ul>
-                    </nav>
-                </header>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
+        {/* <section>
                     <FullPost id={this.state.selectedPostId}/>
                 </section>
                 <section>
                     <NewPost />
-                </section>
-            </div>
-        );
-    }
+                </section> */}
+      </div>
+    );
+  }
 }
 
 export default Blog;
