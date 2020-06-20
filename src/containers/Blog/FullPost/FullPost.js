@@ -10,7 +10,7 @@ class FullPost extends Component {
 
   deletePostHandler = () => {
     axios
-        .delete("/posts/" + this.props.id)
+        .delete("/posts/" + this.props.match.params.id)
         .then(resp => {
             console.log(resp)
         })
@@ -20,16 +20,18 @@ class FullPost extends Component {
     
   }
 
-  componentDidUpdate() {
-    if (this.props.id) {
-      console.log("[FullPost] componentDidUpdate");
+  componentDidMount() {
+    this.setState({loadedPost: this.props.match.params.id})
+    
+    if (this.props.match.params.id) {
+      console.log("[FullPost] componentDidMount");
       if (
         !this.state.loadedPost ||
-        (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
+        (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)
       ) {
         console.log("axios");
         axios
-          .get("https://jsonplaceholder.cypress.io/posts/" + this.props.id)
+          .get("https://jsonplaceholder.cypress.io/posts/" + this.props.match.params.id)
           .then((resp) => {
             this.setState({ loadedPost: resp.data });
           })
@@ -42,7 +44,7 @@ class FullPost extends Component {
 
   render() {
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       post = <p style={{ textAlign: "center" }}>Loading...</p>;
     }
     if (this.state.loadedPost) {
