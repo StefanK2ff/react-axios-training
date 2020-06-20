@@ -10,7 +10,8 @@ export default class Posts extends Component {
   };
 
   articleClickHandler = (id) => {
-    this.setState({ selectedPostId: id });
+    //Navigating programatically
+    this.props.history.push({pathname: "/post/" + id})
   };
 
   componentDidMount() {
@@ -40,13 +41,13 @@ export default class Posts extends Component {
       !this.state.loading
         ? (posts = this.state.posts.map((post) => {
             return (
-              <Link to={"/post/" + post.id} key={post.id}>
+              //<Link to={"/post/" + post.id} key={post.id}>
                 <Post
                   title={post.title}
                   author={post.author}
                   clicked={() => this.articleClickHandler(post.id)}
                 />
-              </Link>
+              //</Link>
             );
           }))
         : null;
